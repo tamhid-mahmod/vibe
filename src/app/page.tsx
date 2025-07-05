@@ -1,11 +1,20 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
+import { useTRPC } from "@/trpc/client";
+import { useMutation } from "@tanstack/react-query";
 
 // ----------------------------------------------------------------------
 
 export default function Page() {
+  const trpc = useTRPC();
+  const invoke = useMutation(trpc.invoke.mutationOptions({}));
+
   return (
-    <div>
-      <Button>Click me</Button>
+    <div className="p-4 max-w-7xl mx-auto">
+      <Button onClick={() => invoke.mutate({ text: "Tamhid" })}>
+        Invoke Backround Job
+      </Button>
     </div>
   );
 }
